@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import App from "./App.vue";
+// import VueRouter from "vue-router";
 
+// Vue.use(VueRouter);
 let vm = new Vue({
     render: h => h(App),
 
