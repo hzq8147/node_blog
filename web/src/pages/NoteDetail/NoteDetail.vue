@@ -1,21 +1,15 @@
 <template>
   <div id="main">
-    <router-view/>
+    <div>456</div>
   </div>
 </template>
 <script lang="ts">
 import { Component,Vue } from 'vue-property-decorator';
 @Component({
-  name:'App',
-  components:{
-  }
+  name:'NoteDetail'
 })
-export default class App extends Vue {
+export default class NoteDetail extends Vue {
 }
 </script>
 <style>
-html, body, #main {
-  height: 100%;
-  width: 100%;
-}
 </style>

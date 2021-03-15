@@ -7,6 +7,12 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     mode:'development',
+    resolve: {
+        alias:{
+            pages:path.resolve(__dirname,'src/pages')
+        },
+        extensions: [ '.ts', '.tsx', '.js', '.json']
+    },
     module:{
         rules:[
             {
