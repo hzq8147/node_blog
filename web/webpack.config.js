@@ -47,7 +47,8 @@ module.exports = {
         contentBase:'./',
         inline:true,
         progress:true,
-        hot:true
+        hot:true,
+        port:3001
     },
     plugins:[
         new HtmlWebpackPlugin({
