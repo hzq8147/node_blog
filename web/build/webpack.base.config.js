@@ -1,15 +1,14 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
     entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'dist')
     },
-    mode:'development',
     resolve: {
         alias:{
-            pages:path.resolve(__dirname,'src/pages')
+            pages:path.resolve(__dirname,'../src/pages')
         },
         extensions: [ '.ts', '.tsx', '.js', '.json']
     },
