@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs');
-const fsUtils = require("./src/utils/fsUtils");
+const fsUtils = require("./utils/fsUtils");
 const app = express();
 // parse request from web
 let bodyParser = require('body-parser');

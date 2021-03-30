@@ -1,5 +1,5 @@
-const Index = () => import('pages/Index');
-const NoteDetail = () => import('pages/NoteDetail');
+const Index = () => import('pages/Index/index.vue');
+const NoteDetail = () => import('pages/NoteDetail/index.vue');
 export default [
     {
         path:'/',

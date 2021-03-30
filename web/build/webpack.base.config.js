@@ -10,7 +10,7 @@ module.exports = {
         alias:{
             pages:path.resolve(__dirname,'../src/pages')
         },
-        extensions: [ '.ts', '.tsx', '.js', '.json']
+        extensions: [ '.ts', '.tsx', '.js', '.json','.vue']
     },
     module:{
         rules:[
