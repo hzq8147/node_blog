@@ -5,17 +5,20 @@
 </template>
 <script lang="ts">
 import { Component,Vue } from 'vue-property-decorator';
-import axios from "axios";
+import Service from "./service";
+const service = new Service();
 @Component({
   name:'Index'
 })
 export default class Index extends Vue {
+
     created(){
-        axios.get("http://"+location.hostname+':3000/getNoteList').then(data=>{
-            console.log(data);
-        }).catch(e=>{
-            console.log(e);
-        })
+        service.initPage(this);
+        // axios.get("http://"+location.hostname+':3000/getNoteList').then(data=>{
+        //     console.log(data);
+        // }).catch(e=>{
+        //     console.log(e);
+        // })
     }
 }
 </script>

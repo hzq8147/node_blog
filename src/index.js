@@ -8,7 +8,7 @@ const port = 3000;
 // parse application/json
 app.use(bodyParser.json());
 
-const allowOrigin = ["http://localhost:3001","http://127.0.0.1:3001"];
+const allowOrigin = ["http://localhost:3001","http://127.0.0.1:3001","http://0.0.0.0:3001"];
 let allowCrossDomain = function (req,res,next) {
     var origin = req.headers.origin;
     if (allowOrigin.indexOf(origin) > -1 ) {
@@ -16,13 +16,14 @@ let allowCrossDomain = function (req,res,next) {
     }
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials',true);
     next();
 }
 app.use(allowCrossDomain);
 app.get('/', (req, res) => {
     res.send('hello world');
 })
-app.get('/getNoteList',async (req,res)=>{
+app.post('/getNoteList',async (req,res)=>{
     const data = await fsUtils.getNoteList();
     res.send(JSON.stringify(data));
 })
