@@ -11,7 +11,7 @@ const service = new Service();
   name:'Index'
 })
 export default class Index extends Vue {
-
+    noteList:any = [];
     created(){
         service.initPage(this);
         // axios.get("http://"+location.hostname+':3000/getNoteList').then(data=>{

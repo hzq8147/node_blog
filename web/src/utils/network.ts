@@ -21,7 +21,7 @@ const checkHttpStatus = response =>{
         // error case
     }
     if (response.status >= 200 && response.status < 300){
-        if (response.data && response.data.errno === 0){
+        if (response.data && response.data.error === 0){
             // success case
             return response.data;
         }
@@ -64,6 +64,7 @@ function installAxios(Vue, axiosConfig){
 }
 async function sendRequest(url,options?:ApiOptions){
     const response = await axios(url,options).then(checkHttpStatus).catch(httpError);
+    console.log(response);
     if (response.error){
         // toast exception
     }
