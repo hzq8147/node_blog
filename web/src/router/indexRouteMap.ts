@@ -1,17 +1,17 @@
-const Index = () => import('pages/Index/index.vue');
-const NoteDetail = () => import('pages/NoteDetail/index.vue');
+const HomeIndex = () => import('pages/HomeIndex/HomeIndex.vue');
+// const NoteDetail = () => import('pages/NoteDetail/index.vue');
 export default [
     {
         path:'/',
-        component:Index
+        component:HomeIndex
     },
-    {
-        path:'/note',
-        component:NoteDetail
-    },
+    // {
+    //     path:'/note',
+    //     component:NoteDetail
+    // },
     {
         path:'*',
-        component:Index
+        component:HomeIndex
     }
 ]
 

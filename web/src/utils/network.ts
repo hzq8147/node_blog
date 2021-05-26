@@ -35,13 +35,12 @@ const httpError = e =>{
     return {error:true,exception:e};
 }
 function installAxios(Vue, axiosConfig){
+    axios.interceptors.request.use(...beforeRequest);
+    axios.interceptors.request.use(...beforeResponse);
     const defaults = config.defaults;
     Object.keys(defaults).forEach(key=>{
         axios.defaults[key] = defaults[key];
     })
-
-    axios.interceptors.request.use(...beforeRequest);
-    axios.interceptors.request.use(...beforeResponse);
     let apis = {};
     Object.keys(apiConfig).forEach(name =>{
         apis[name] = async function api(options?: ApiOptions){

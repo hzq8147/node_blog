@@ -8,7 +8,9 @@ module.exports = {
     },
     resolve: {
         alias:{
-            pages:path.resolve(__dirname,'../src/pages')
+            pages:path.resolve(__dirname,'../src/pages'),
+            components:path.resolve(__dirname,"../src/components"),
+
         },
         extensions: [ '.ts', '.tsx', '.js', '.json','.vue']
     },
@@ -34,6 +36,27 @@ module.exports = {
                     'vue-style-loader',
                     'css-loader'
                 ]
+            },
+            {
+                test: /\.less/,
+                use:[
+                    'vue-style-loader',
+                    'css-loader',
+                    'less-loader',
+                ]
+            },
+            {
+                test: /\.(png|jpg|ico|gif)$/i,
+                use:[
+                    {
+                        loader:'url-loader',
+                        options: {
+                            limit: 10000,
+                            name: 'static/media/[name].[hash:8].[ext]',
+                            esModule: false
+                        },
+                    }
+                ],
             },
             {
                 test:/\.vue$/,
