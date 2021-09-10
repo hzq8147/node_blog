@@ -1,0 +1,5 @@
+/node_modules/
+/.idea/
+/web/dist/
+/web/node_modules/
+/newWeb/node_modules/
