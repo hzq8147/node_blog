@@ -1,19 +1,21 @@
 <template>
-    <div class="banner">
-        <div class="text">{{count}}</div>
-        <div class="text">{{countCompute}}</div>
+    <section class="banner">
+        <!-- <div class="text">{{count}}</div>
+        <div class="text">{{countCompute}}</div> -->
+        <home-router></home-router>
         <img @click="handleClick" src="./img/img_banner.gif" class="img">
-    </div>
+    </section>
 </template>
-<script setup>
+<script setup lang="ts">
+import HomeRouter from '../HomeRouter';
 import {ref,computed} from 'vue';
 const count = ref(0);
+const a = ["1","2","3"];
 const countCompute = computed(()=>{
     return count.value * 2;
 })
 const handleClick =()=>{
     count.value ++;
-    console.log(count);
 }
 </script>
 <style lang="less" scoped rel="stylesheet/less">
