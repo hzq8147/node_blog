@@ -1,13 +1,14 @@
 <template>
     <section class="router">
-        <div v-for="item in props.menuList">
+        <i class="fa fa-camera-retro fa-lg"></i>
+        <div v-for="item in menuList">
             {{item}}
         </div>
     </section>
 </template>
 <script setup>
 import {defineProps} from 'vue';
-const props = defineProps({
+defineProps({
     menuList:{
         type: Array,
         default: ['1']

@@ -1,21 +1,22 @@
 <template>
     <section class="banner">
-        <!-- <div class="text">{{count}}</div>
-        <div class="text">{{countCompute}}</div> -->
-        <home-router></home-router>
-        <img @click="handleClick" src="./img/img_banner.gif" class="img">
+        <div class="text">{{count}}</div>
+        <div class="text">{{countCompute}}</div>
+        <home-router :menuList="a"></home-router>
+        <img @click="handleClick"  src="./img/img_banner.gif" class="img">
     </section>
 </template>
 <script setup lang="ts">
 import HomeRouter from '../HomeRouter';
-import {ref,computed} from 'vue';
+import {ref,computed,reactive} from 'vue';
 const count = ref(0);
-const a = ["1","2","3"];
+const a = reactive(["1","2","3"]);
 const countCompute = computed(()=>{
     return count.value * 2;
 })
 const handleClick =()=>{
     count.value ++;
+    a[a.length - 1] = count.value;
 }
 </script>
 <style lang="less" scoped rel="stylesheet/less">
@@ -33,6 +34,7 @@ const handleClick =()=>{
         right: 80px;
         height: 80px;
         width: auto;
+        mix-blend-mode: multiply;
     }
 }
 </style>

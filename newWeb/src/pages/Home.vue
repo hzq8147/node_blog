@@ -1,10 +1,19 @@
 <template>
-    <home-banner></home-banner>
+    <div class="home">
+        <home-background></home-background>
+        <home-banner></home-banner>
+        <snake></snake>
+    </div>
 </template>
 <script setup>
-import {HomeBanner} from 'components/Home';
-
+import {HomeBanner,HomeBackground} from 'components/Home';
+import Snake from 'components/Snake';
 </script>
 <style>
+.home {
+    width:100%;
+    height:100%;
+    overflow: hidden;
+}
 
 </style>
