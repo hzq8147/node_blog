@@ -58,9 +58,9 @@ export default class Star {
         ctx.restore();
     }
     move(){
-        this.y -= this.config.move_distance;
-        if (this.y <= -10){
-            this.y = this.bg.HEIGHT + 10;
+        this.y += this.config.move_distance;
+        if (this.y > this.bg.HEIGHT + 10){
+            this.y = 10;
         }
         this.draw();
     }

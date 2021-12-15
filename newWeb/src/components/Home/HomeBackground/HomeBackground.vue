@@ -11,12 +11,6 @@ onMounted(()=>{
     const canvas = document.getElementById('bg');
     const bg = new Bg(canvas);
     bg.init();
-    window.onresize=()=>{
-        bg.init();
-    }
-})
-onBeforeUnmount(()=>{
-    window.onresize=()=>{};
 })
 
 </script>
