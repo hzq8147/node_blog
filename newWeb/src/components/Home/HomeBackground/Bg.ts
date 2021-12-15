@@ -34,6 +34,7 @@ export default class Bg {
     mouseMoveChecker;
     mouseX;
     mouseY;
+    anima: any = null;
     constructor(canvas){
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -52,6 +53,9 @@ export default class Bg {
         this.canvas.setAttribute("height", this.HEIGHT);
     }
     init(conf){
+        if (this.anima){
+            window.cancelAnimationFrame(this.anima);
+        }
         this.initConfig(conf);//初始化设置
         this.resize();
         this.ctx.strokeStyle = "white";
@@ -75,6 +79,6 @@ export default class Bg {
         //     this.dots[i].move();
         // }
         // drawIfMouseMoving();
-        requestAnimationFrame(this.animate.bind(this));
+        this.anima = requestAnimationFrame(this.animate.bind(this));
     }
 }

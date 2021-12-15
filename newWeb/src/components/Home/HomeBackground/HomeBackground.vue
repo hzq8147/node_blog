@@ -5,12 +5,18 @@
     </div>    
 </template>
 <script setup>
-import { onMounted } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
 import Bg from './Bg';
 onMounted(()=>{
     const canvas = document.getElementById('bg');
     const bg = new Bg(canvas);
     bg.init();
+    window.onresize=()=>{
+        bg.init();
+    }
+})
+onBeforeUnmount(()=>{
+    window.onresize=()=>{};
 })
 
 </script>
