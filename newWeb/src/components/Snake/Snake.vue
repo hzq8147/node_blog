@@ -17,6 +17,7 @@
 <script setup>
 import {reactive, ref, nextTick, onMounted} from 'vue';
 import utils from './utils';
+import Ball from './Ball';
 const INIT_SNAKE_STATE = {
     path:[],
     direction:'up',
@@ -42,8 +43,12 @@ const props = defineProps({
     },
     initLength:{
         type: Number,
-        default:50
+        default:100
     },
+    size:{
+        type: Number,
+        default:10
+    }
 })
 onMounted(()=>{
     initGame();
@@ -52,15 +57,18 @@ const initGame = ()=>{
     gameState.status = 'run';
     initState();
     initMap();
+    initBall();
     initSnakePath();
     paintSnake();
     startMove();
     initControl();
+    
 }
 const stopGame = ()=>{
     gameState.status = 'die';
     clearMap();
     window.cancelAnimationFrame(anima);
+    // clearInterval(interval);
 }
 const initState = () =>{
     gameState.score = 0;
@@ -107,10 +115,19 @@ const paintSnake = ()=>{
     context.stroke();
     
 }
+let ball = null;
+const initBall=()=>{
+    ball = new Ball(canvas,context,props.size)
+}
 let anima = null;
+let interval =null;
 const startMove = ()=>{
     move();
+    ball.renderCache();
     anima = requestAnimationFrame(startMove);
+    if (gameState.status == 'die'){
+        window.cancelAnimationFrame(anima);
+    }
     // interval = setInterval(()=>{
     //     move();
     // },500)
@@ -140,11 +157,33 @@ const snakeMove = (direct)=>{
             if (point.x <= 0 || point.y <= 0 || point.x >= canvas.width || point.y >= canvas.height){
                 stopGame();
             }
+            if (utils.isInBall(point,ball)){
+                ball.generate();
+                // generateSanke();
+                gameState.score ++;
+            }
+           
         }
     })
+    if (checkPath()){
+        stopGame();
+    }
     if (gameState.status == 'run'){
         paintSnake();
     }
+}
+const checkPath = ()=>{
+    if (snakeState.path.length <= 2){
+        return false;
+    }
+    const line = [snakeState.path[0],snakeState.path[1]];
+    for (let i = 1 ;i < snakeState.path.length - 1;i++ ){
+        const point = snakeState.path[i];
+        const result = utils.haveIntersection(line,[point,snakeState.path[i+1]]);
+        
+        if (result) return true;
+    }
+    return false;
 }
 const changeDirect = (newDirect) =>{
     const nowDirection = snakeState.direction;
