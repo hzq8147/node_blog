@@ -27,11 +27,11 @@ const map = reactive([]);
 const props = defineProps({
     width:{
         type: String,
-        default:'500px'
+        default:'300px'
     },
     height:{
         type: String,
-        default:'500px'
+        default:'300px'
     },
     startX:{
         type: Number,
@@ -47,7 +47,15 @@ const props = defineProps({
     },
     size:{
         type: Number,
-        default:10
+        default:5
+    },
+    increaseSize:{
+        type: Number,
+        default: 10
+    },
+    speed:{
+        type: Number,
+        default:2
     }
 })
 onMounted(()=>{
@@ -73,6 +81,7 @@ const stopGame = ()=>{
 const initState = () =>{
     gameState.score = 0;
     snakeState = JSON.parse(JSON.stringify(INIT_SNAKE_STATE));
+    snakeState.speed = props.speed;
 }
 const mapRef = ref(null);
 let snakeState = INIT_SNAKE_STATE;
@@ -159,7 +168,7 @@ const snakeMove = (direct)=>{
             }
             if (utils.isInBall(point,ball)){
                 ball.generate();
-                // generateSanke();
+                generateSanke();
                 gameState.score ++;
             }
            
@@ -171,6 +180,39 @@ const snakeMove = (direct)=>{
     if (gameState.status == 'run'){
         paintSnake();
     }
+}
+const generateSanke = ()=>{
+    const lastPoint = snakeState.path[ snakeState.path.length -1 ];
+    let move = utils.getMove(snakeState.path[snakeState.path.length - 2], lastPoint);
+    let newPoint ;
+    switch (move){
+        case 'up':
+            newPoint = {
+                x:lastPoint.x,
+                y:lastPoint.y + (1 * props.increaseSize)
+            }
+            break;
+        case 'down':
+            newPoint = {
+                x:lastPoint.x,
+                y:lastPoint.y + (-1 * props.increaseSize)
+            }
+            break;
+        case 'left':
+            newPoint = {
+                x:lastPoint.x + (1 * props.increaseSize),
+                y:lastPoint.y 
+            }
+            break;
+        case 'right':
+            newPoint = {
+                x:lastPoint.x + (-1 * props.increaseSize),
+                y:lastPoint.y 
+            }
+            break;
+    }
+    snakeState.path.push(newPoint);
+
 }
 const checkPath = ()=>{
     if (snakeState.path.length <= 2){

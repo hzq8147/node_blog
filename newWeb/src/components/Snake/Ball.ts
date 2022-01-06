@@ -22,7 +22,6 @@ export default class Ball {
     generate(){
         this.x = Math.random() * this.canvas.width;
         this.y = Math.random() * this.canvas.height;
-        console.log(this.x,this.y);
     }
     renderCache(){
         let ctx = this.cacheCtx;
