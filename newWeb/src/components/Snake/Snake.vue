@@ -1,65 +1,94 @@
 <template>
-    <div class="map" ref="mapRef">
-        <div class="menu" v-if="gameState.status == 'die'">
-            <div class="text">
-                重新开始？
+    <section>
+        <div class="score">{{gameState.score}}</div>
+        <div class="map" ref="mapRef"> 
+            <div class="menu" v-if="gameState.status == 'die'">
+                <div class="text">
+                    重新开始？
+                </div>
+                <div class="text">
+                    你得到了{{gameState.score}}分
+                </div>
+                <div class="btn" @click="initGame">
+                    do it
+                </div>
             </div>
-            <div class="text">
-                你得到了{{gameState.score}}分
+            <div class="menu" v-if="gameState.status == 'ready'">
+                <div class="text">
+                    准备开始？
+                </div>
+                <div class="btn" @click="initGame">
+                    lets do it！
+                </div>
             </div>
-            <div class="btn" @click="initGame">
-                do it
-            </div>
+            <canvas id="snake"></canvas>
         </div>
-        <canvas id="snake"></canvas>
-    </div>
+    </section>
 </template>
 <script setup>
+/**
+ * props:
+ * 
+ * @param width Map Width
+ * @param height Map Height
+ * @param startX Snake StartX
+ * @param startY Snake StartY
+ * @param initLength Snake init length
+ * @param ballSize ball circle radius
+ * @param increaseSize Snake increase Length after eat a ball
+ * @param speed Snake move speed
+ * @param snakeWidth Snake width
+ */
 import {reactive, ref, nextTick, onMounted} from 'vue';
 import utils from './utils';
 import Ball from './Ball';
 const INIT_SNAKE_STATE = {
     path:[],
-    direction:'up',
+    direction:'right',
     speed:1
 }
 const map = reactive([]);
 const props = defineProps({
     width:{
         type: String,
-        default:'300px'
+        default: '200px'
     },
     height:{
         type: String,
-        default:'300px'
+        default: '200px'
     },
     startX:{
         type: Number,
-        default: 100
+        default: 75
     },
     startY:{
         type: Number,
-        default: 100
+        default: 75
     },
     initLength:{
         type: Number,
-        default:100
+        default: 50
     },
-    size:{
+    ballSize:{
         type: Number,
-        default:5
+        default: 8
     },
     increaseSize:{
         type: Number,
-        default: 10
+        default: 20
     },
     speed:{
         type: Number,
-        default:2
+        default: 2
+    },
+    snakeWidth:{
+        type: Number,
+        default: 5
     }
 })
 onMounted(()=>{
-    initGame();
+    
+    // initGame();
 })
 const initGame = ()=>{
     gameState.status = 'run';
@@ -87,7 +116,7 @@ const mapRef = ref(null);
 let snakeState = INIT_SNAKE_STATE;
 const gameState = reactive({
     score: 0,
-    status: 'run',
+    status: 'ready',
 });
 let canvas = null;
 let context = null;
@@ -104,7 +133,7 @@ const initMap = ()=>{
 const initSnakePath = ()=>{
     snakeState.path = [
         {x:props.startX,y:props.startY},
-        {x:props.startX,y:props.startY + props.initLength}
+        {x:props.startX - props.initLength,y:props.startY}
     ]
 }
 const clearMap = ()=>{
@@ -113,6 +142,7 @@ const clearMap = ()=>{
 const paintSnake = ()=>{
     clearMap();
     context.strokeStyle = 'pink';
+    context.lineWidth = props.snakeWidth;
     context.beginPath();
     snakeState.path.forEach((point,index)=>{
         if (index == 0){
@@ -126,7 +156,7 @@ const paintSnake = ()=>{
 }
 let ball = null;
 const initBall=()=>{
-    ball = new Ball(canvas,context,props.size)
+    ball = new Ball(canvas,context,props.ballSize)
 }
 let anima = null;
 let interval =null;
@@ -282,6 +312,10 @@ const initControl = ()=> {
 }
 </script>
 <style scope lang="less" rel="styleSheet/less">
+.score {
+    font-size: 20px;
+    font-weight: bold;
+}
 .map {
     width:v-bind('width');
     height:v-bind('height');
@@ -291,7 +325,7 @@ const initControl = ()=> {
         position:absolute;
         left: 50%;
         top:50%;
-        transform: translate(-50%);
+        transform: translate(-50%,-50%);
         .text {
             font-size: 20%;
         }
