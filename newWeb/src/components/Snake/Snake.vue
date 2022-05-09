@@ -45,7 +45,7 @@ import Ball from './Ball';
 const INIT_SNAKE_STATE = {
     path:[],
     direction:'right',
-    speed:1
+    speed:0.5
 }
 const map = reactive([]);
 const props = defineProps({
@@ -79,7 +79,7 @@ const props = defineProps({
     },
     speed:{
         type: Number,
-        default: 2
+        default: 1
     },
     snakeWidth:{
         type: Number,
@@ -127,7 +127,7 @@ const initMap = ()=>{
     if (!mapRef.value) return;
     let trueHeight = mapRef.value.clientHeight;
     let trueWidth = mapRef.value.clientWidth;
-    canvas.setAttribute("width", trueHeight);
+    canvas.setAttribute("width", trueWidth);
     canvas.setAttribute("height", trueHeight);
 }
 const initSnakePath = ()=>{
